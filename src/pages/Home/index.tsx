@@ -1,12 +1,13 @@
 import {
   BannerContainer,
   BoxTitleContainer,
-  ControlBoxContainer,
   HomeContainer,
+  IconContainer,
   TitleBannerContainer,
 } from './styles'
 import bannerHome from '../../assets/bannerHome.svg'
 import { ShoppingCart, Package, Timer, Coffee } from 'phosphor-react'
+import { OurCoffes } from './Components/OurCoffes'
 
 export function Home() {
   return (
@@ -14,44 +15,40 @@ export function Home() {
       <BannerContainer>
         <TitleBannerContainer>
           <h1>Encontre o café perfeito para qualquer hora do dia </h1>
-          <p>
+          <span>
             Com o Coffe Delivery você recebe seu café onde estiver, a qualquer
             hora
-          </p>
+          </span>
           <BoxTitleContainer>
-            <ControlBoxContainer>
+            <IconContainer>
               <div>
-                <div>
-                  <ShoppingCart size={16} weight="fill" color="#FAFAFA" />
-                </div>
-                <p>Compra Simples e segura</p>
+                <ShoppingCart size={16} weight="fill" color="#FAFAFA" />
               </div>
+              <p>Compra Simples e segura</p>
+            </IconContainer>
+            <IconContainer>
               <div>
-                <div>
-                  <Package size={16} weight="fill" color="#FAFAFA" />
-                </div>
-                <p>Embalagem mantém o café intacto</p>
+                <Package size={16} weight="fill" color="#FAFAFA" />
               </div>
-            </ControlBoxContainer>
-            <ControlBoxContainer>
+              <p>Embalagem mantém o café intacto</p>
+            </IconContainer>
+            <IconContainer>
               <div>
-                <div>
-                  <Timer size={16} weight="fill" color="#FAFAFA" />
-                </div>
-                <p>Entrega rápida e rastreada</p>
+                <Timer size={16} weight="fill" color="#FAFAFA" />
               </div>
-
+              <p>Entrega rápida e rastreada</p>
+            </IconContainer>
+            <IconContainer>
               <div>
-                <div>
-                  <Coffee size={16} weight="fill" color="#FAFAFA" />
-                </div>
-                <p>O café chega fresquinho até você</p>
+                <Coffee size={16} weight="fill" color="#FAFAFA" />
               </div>
-            </ControlBoxContainer>
+              <p>Entrega rápida e rastreada</p>
+            </IconContainer>
           </BoxTitleContainer>
         </TitleBannerContainer>
         <img src={bannerHome} alt="" />
       </BannerContainer>
+      <OurCoffes />
     </HomeContainer>
   )
 }

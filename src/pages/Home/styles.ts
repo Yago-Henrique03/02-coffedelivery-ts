@@ -19,7 +19,7 @@ export const TitleBannerContainer = styled.div`
     line-height: 130%;
   }
 
-  p {
+  span {
     font-size: 1.25rem;
     margin-top: 1rem;
     color: ${(props) => props.theme['base-subtitle']};
@@ -27,33 +27,28 @@ export const TitleBannerContainer = styled.div`
 `
 
 export const BoxTitleContainer = styled.div`
-  margin-top: 4rem;
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 565px;
-  align-items: center;
-
-  div {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    p {
-      margin-bottom: 15px;
-      font-size: 1rem;
-      color: ${(props) => props.theme['base-text']};
-    }
-  }
+  display: grid;
+  grid-template-columns: 0.7fr 0.8fr;
+  grid-gap: 5px;
+  margin-top: 4.125rem;
 `
 
-export const ControlBoxContainer = styled.div`
+export const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
   div {
+    background: ${(props) => props.theme.purple};
     display: flex;
-    justify-content: center;
-    div {
-      background-color: ${(props) => props.theme.yellow};
-      padding: 0.5rem;
-      border-radius: 100%;
-    }
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+
+  p {
+    color: ${(props) => props.theme['base-text']};
+    font-size: 1rem;
+    display: flex;
   }
 `
