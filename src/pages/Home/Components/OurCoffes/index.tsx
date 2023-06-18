@@ -1,12 +1,15 @@
+import { ChartContext } from '../../../../contexts/ChartContext'
 import { CoffeContainer, CoffesContainer, OurCoffesContainer } from './styles'
-import { coffes } from './Coffes'
+import { useContext } from 'react'
 
 export function OurCoffes() {
+  const { products } = useContext(ChartContext)
+
   return (
     <OurCoffesContainer>
       <h1>Nossos cafés</h1>
       <CoffesContainer>
-        {coffes.map((coffe) => {
+        {products.map((coffe) => {
           return (
             <CoffeContainer key={coffe.name}>
               <img src={coffe.src} alt="" />

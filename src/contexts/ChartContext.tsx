@@ -1,29 +1,33 @@
 import { ReactNode, createContext, useReducer } from 'react'
+import { coffes } from '../pages/Home/Components/OurCoffes/Coffes'
+import { Chart, Product, chartReducer } from '../reducers/chart/reducer'
 
-interface ChartContextType {}
+interface ChartContextType {
+  products: Product[]
+  chart: Chart[]
+}
 
 export const ChartContext = createContext({} as ChartContextType)
 
-interface Product {
-  id: string
-  name: string
-  content: string
-  title: string[]
-}
-
 interface ChartContextProviderProps {
   children: ReactNode
-  products: Product[]
 }
 
 export function ChartContextProvider({ children }: ChartContextProviderProps) {
   const [chartState, dispatch] = useReducer(
+    chartReducer,
     {
-      products: [],
+      products: [...coffes],
       chart: [],
     },
     [],
   )
 
-  return <ChartContext.Provider value={}>{children}</ChartContext.Provider>
+  const [products, chart] = chartState
+
+  return (
+    <ChartContext.Provider value={{ products, chart }}>
+      {children}
+    </ChartContext.Provider>
+  )
 }
