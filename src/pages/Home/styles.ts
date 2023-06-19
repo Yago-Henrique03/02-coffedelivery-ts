@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-export const HomeContainer = styled.div`
+export const HomeContainer = styled.main`
   display: flex;
   flex-direction: column;
-  margin-top: 92px;
+  margin-top: 5rem;
 `
 
 export const BannerContainer = styled.div`
