@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const PayoutContainer = styled.main`
+export const PayoutContainer = styled.form`
   display: grid;
   grid-template-columns: 640px 448px;
   grid-gap: 32px;
@@ -9,6 +9,13 @@ export const PayoutContainer = styled.main`
     font-size: 1.2rem;
     margin-bottom: 15px;
   }
+`
+
+export const ChartContainer = styled.div`
+  width: 448px;
+  background: ${(props) => props.theme['base-card']};
+  padding: 2.5rem;
+  border-radius: 6px 44px;
 `
 
 export const FormContainer = styled.form`
@@ -123,15 +130,8 @@ export const ButtonsContainer = styled.div`
     border-radius: 6px;
 
     &:hover {
-      background: ${(props) => props.theme['purple-light']};
+      background: ${(props) => props.theme['base-hover']};
       transition: 0.4s;
     }
   }
-`
-
-export const ChartContainer = styled.div`
-  width: 448px;
-  background: ${(props) => props.theme['base-card']};
-  padding: 2.5rem;
-  border-radius: 6px 44px;
 `

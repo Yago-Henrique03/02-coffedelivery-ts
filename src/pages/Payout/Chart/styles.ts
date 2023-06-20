@@ -102,3 +102,17 @@ export const ConfirmOrderContainer = styled.button`
     cursor: not-allowed;
   }
 `
+
+export const NoItemsOnCart = styled.div`
+  border: 1px solid ${(props) => props.theme['base-hover']};
+  height: 100px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  h1 {
+    margin: 0px;
+    color: ${(props) => props.theme['base-hover']};
+  }
+`

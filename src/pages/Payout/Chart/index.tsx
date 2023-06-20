@@ -9,9 +9,10 @@ import {
   ButtonAddContainer,
   RemoveContainer,
   ValueCoffeContainer,
+  NoItemsOnCart,
 } from './styles'
 import { useNavigate } from 'react-router-dom'
-import { Minus, Plus, Trash } from 'phosphor-react'
+import { Bag, Minus, Plus, Trash } from 'phosphor-react'
 
 export function ChartPaymentContainer() {
   const { products, setAddQuantity, removeQuantity, removeFromChart } =
@@ -34,39 +35,54 @@ export function ChartPaymentContainer() {
 
   return (
     <ChartContainer>
-      {itensOnChart.map((cofe: any) => {
-        return (
-          <ProductContainer key={cofe.id}>
-            <img src={cofe.src} alt={cofe.name} />
-            <div>
-              <p>{cofe.name}</p>
-              <QuantityContainer>
-                <ButtonAddContainer>
-                  <button type="button" onClick={() => removeQuantity(cofe.id)}>
-                    <Minus size={17} color="#8047F8" />
-                  </button>
+      {itensOnChart.length === 0 ? (
+        <NoItemsOnCart>
+          <Bag size={32} color="#D7D5D5" />
+          <h1>Você não possui itens no carrinho</h1>
+        </NoItemsOnCart>
+      ) : (
+        itensOnChart.map((cofe: any) => {
+          return (
+            <ProductContainer key={cofe.id}>
+              <img src={cofe.src} alt={cofe.name} />
+              <div>
+                <p>{cofe.name}</p>
+                <QuantityContainer>
+                  <ButtonAddContainer>
+                    <button
+                      type="button"
+                      onClick={() => removeQuantity(cofe.id)}
+                    >
+                      <Minus size={17} color="#8047F8" />
+                    </button>
 
-                  <p>{cofe.quantity}</p>
+                    <p>{cofe.quantity}</p>
 
-                  <button type="button" onClick={() => setAddQuantity(cofe.id)}>
-                    <Plus size={17} color="#8047F8" />
-                  </button>
-                </ButtonAddContainer>
-                <RemoveContainer
-                  type="button"
-                  onClick={() => removeFromChart(cofe.id)}
-                >
-                  <Trash size={17} color="#8047F8" />
-                  REMOVER
-                </RemoveContainer>
-                <ValueCoffeContainer>
-                  <p>R$ {cofe.price.toFixed(2).toString().replace('.', ',')}</p>
-                </ValueCoffeContainer>
-              </QuantityContainer>
-            </div>
-          </ProductContainer>
-        )
-      })}
+                    <button
+                      type="button"
+                      onClick={() => setAddQuantity(cofe.id)}
+                    >
+                      <Plus size={17} color="#8047F8" />
+                    </button>
+                  </ButtonAddContainer>
+                  <RemoveContainer
+                    type="button"
+                    onClick={() => removeFromChart(cofe.id)}
+                  >
+                    <Trash size={17} color="#8047F8" />
+                    REMOVER
+                  </RemoveContainer>
+                  <ValueCoffeContainer>
+                    <p>
+                      R$ {cofe.price.toFixed(2).toString().replace('.', ',')}
+                    </p>
+                  </ValueCoffeContainer>
+                </QuantityContainer>
+              </div>
+            </ProductContainer>
+          )
+        })
+      )}
       <PriceValueContainer>
         <div>
           <p>Total de Itens</p>

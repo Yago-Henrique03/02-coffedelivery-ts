@@ -105,4 +105,9 @@ export const ButtonChartContainer = styled.button`
   background: ${(props) => props.theme['purple-dark']};
   border: 0;
   border-radius: 6px;
+  &:hover {
+    background: ${(props) => props.theme.purple};
+    transition: 0.3s;
+    cursor: pointer;
+  }
 `
