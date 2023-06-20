@@ -1,5 +1,8 @@
-import { PriceValueContainer, ConfirmOrderContainer } from '../styles'
+import { useContext } from 'react'
+import { ChartContext } from '../../../contexts/ChartAndCoffes'
 import {
+  PriceValueContainer,
+  ConfirmOrderContainer,
   ChartContainer,
   ProductContainer,
   QuantityContainer,
@@ -7,17 +10,31 @@ import {
   RemoveContainer,
   ValueCoffeContainer,
 } from './styles'
-import { coffes } from '../../Home/Components/OurCoffes/Coffes'
+import { useNavigate } from 'react-router-dom'
 import { Minus, Plus, Trash } from 'phosphor-react'
 
-const coffesOnChart = coffes.filter((coffe) => {
-  return coffe.id === 1 || coffe.id === 2
-})
-
 export function ChartPaymentContainer() {
+  const { products, setAddQuantity, removeQuantity, removeFromChart } =
+    useContext(ChartContext)
+  const itensOnChart = products.filter((product) => product.isOnChart === true)
+
+  const totalPrice = itensOnChart.reduce((acc, currentItem) => {
+    const subtotal = currentItem.price * currentItem.quantity
+    return acc + subtotal
+  }, 0)
+
+  const entrega = 3.5
+  const totalWithSend = totalPrice + entrega
+
+  const navigate = useNavigate()
+
+  function handleRedirect() {
+    navigate('/Completedbuy')
+  }
+
   return (
     <ChartContainer>
-      {coffesOnChart.map((cofe) => {
+      {itensOnChart.map((cofe: any) => {
         return (
           <ProductContainer key={cofe.id}>
             <img src={cofe.src} alt={cofe.name} />
@@ -25,22 +42,25 @@ export function ChartPaymentContainer() {
               <p>{cofe.name}</p>
               <QuantityContainer>
                 <ButtonAddContainer>
-                  <button type="button">
+                  <button type="button" onClick={() => removeQuantity(cofe.id)}>
                     <Minus size={17} color="#8047F8" />
                   </button>
 
-                  <p>1</p>
+                  <p>{cofe.quantity}</p>
 
-                  <button type="button">
+                  <button type="button" onClick={() => setAddQuantity(cofe.id)}>
                     <Plus size={17} color="#8047F8" />
                   </button>
                 </ButtonAddContainer>
-                <RemoveContainer type="button">
+                <RemoveContainer
+                  type="button"
+                  onClick={() => removeFromChart(cofe.id)}
+                >
                   <Trash size={17} color="#8047F8" />
                   REMOVER
                 </RemoveContainer>
                 <ValueCoffeContainer>
-                  <p>R$ 9,90</p>
+                  <p>R$ {cofe.price.toFixed(2).toString().replace('.', ',')}</p>
                 </ValueCoffeContainer>
               </QuantityContainer>
             </div>
@@ -50,17 +70,17 @@ export function ChartPaymentContainer() {
       <PriceValueContainer>
         <div>
           <p>Total de Itens</p>
-          <p>R$ 29,70</p>
+          <p>R$ {totalPrice.toFixed(2).toString().replace('.', ',')}</p>
         </div>
         <div>
           <p>Entrega</p>
-          <p>R$ 3,50</p>
+          <p>R$ {entrega.toFixed(2).toString().replace('.', ',')}</p>
         </div>
         <div>
           <h1>Total</h1>
-          <h1>R$ 33,20</h1>
+          <h1>R$ {totalWithSend.toFixed(2).toString().replace('.', ',')}</h1>
         </div>
-        <ConfirmOrderContainer type="button">
+        <ConfirmOrderContainer type="button" onClick={() => handleRedirect()}>
           CONFIRMAR PEDIDO
         </ConfirmOrderContainer>
       </PriceValueContainer>

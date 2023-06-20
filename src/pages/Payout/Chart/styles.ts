@@ -39,6 +39,7 @@ export const ButtonAddContainer = styled.div`
   button {
     background: none;
     border: 0;
+    cursor: pointer;
   }
 `
 
@@ -50,6 +51,11 @@ export const RemoveContainer = styled.button`
   background: ${(props) => props.theme['base-button']};
   border-radius: 6px;
   color: ${(props) => props.theme['base-text']};
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => props.theme['purple-light']};
+    transition: 0.5s;
+  }
 `
 
 export const ValueCoffeContainer = styled.div`
@@ -58,4 +64,41 @@ export const ValueCoffeContainer = styled.div`
   justify-content: flex-end;
   font-family: 'Baloo 2';
   font-size: 20px;
+`
+
+export const PriceValueContainer = styled.div`
+  div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  div:first-child {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+
+  div:nth-child(3) {
+    margin-bottom: 33px;
+  }
+`
+
+export const ConfirmOrderContainer = styled.button`
+  width: 100%;
+  padding: 12px;
+  font-weight: 700;
+  background: ${(props) => props.theme.yellow};
+  border: 0;
+  border-radius: 6px;
+  color: ${(props) => props.theme.white};
+  cursor: pointer;
+  &:not(:disabled):hover {
+    background-color: ${(props) => props.theme['yellow-dark']};
+    transition: 0.5s;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 `

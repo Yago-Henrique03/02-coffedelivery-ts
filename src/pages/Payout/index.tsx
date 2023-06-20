@@ -19,9 +19,6 @@ import {
   FieldInputsContainer,
   PayMethodContainer,
   ButtonsContainer,
-  ChartContainer,
-  PriceValueContainer,
-  ConfirmOrderContainer,
 } from './styles'
 import { ChartPaymentContainer } from './Chart'
 

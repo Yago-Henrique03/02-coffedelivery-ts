@@ -37,4 +37,23 @@ export const ChartContainer = styled.div`
   background-color: ${(props) => props.theme['yellow-light']};
   width: fit-content;
   border-radius: 6px;
+  position: relative;
+`
+
+export const ChartCount = styled.div`
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 15px;
+  height: 15px;
+  background-color: ${(props) => props.theme['yellow-dark']};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+
+  p {
+    font-size: 10px;
+    color: ${(props) => props.theme.white};
+  }
 `

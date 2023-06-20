@@ -122,8 +122,9 @@ export const ButtonsContainer = styled.div`
     padding: 1rem;
     border-radius: 6px;
 
-    &:active {
-      border: 1px solid ${(props) => props.theme.purple};
+    &:hover {
+      background: ${(props) => props.theme['purple-light']};
+      transition: 0.4s;
     }
   }
 `
@@ -133,31 +134,4 @@ export const ChartContainer = styled.div`
   background: ${(props) => props.theme['base-card']};
   padding: 2.5rem;
   border-radius: 6px 44px;
-`
-
-export const PriceValueContainer = styled.div`
-  div {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-  div:first-child {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 24px;
-  }
-
-  div:nth-child(3) {
-    margin-bottom: 33px;
-  }
-`
-
-export const ConfirmOrderContainer = styled.button`
-  width: 100%;
-  padding: 12px;
-  font-weight: 700;
-  background: ${(props) => props.theme.yellow};
-  border: 0;
-  border-radius: 6px;
-  color: ${(props) => props.theme.white};
 `
