@@ -121,10 +121,10 @@ export const ButtonsContainer = styled.div`
   justify-content: space-between;
   button {
     background: ${(props) => props.theme['base-button']};
-    width: 1fr;
+    width: 180px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
     border: 1px solid transparent;
     padding: 1rem;
     border-radius: 6px;
