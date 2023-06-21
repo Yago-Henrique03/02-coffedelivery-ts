@@ -13,8 +13,12 @@ import {
   PaymentText,
 } from './styles'
 import bannerImg from '../../assets/Illustration.svg'
+import { useContext } from 'react'
+import { ChartContext } from '../../contexts/ChartAndCoffes'
 
 export function CompletedBuy() {
+  const { userLocation } = useContext(ChartContext)
+  console.log(userLocation)
   return (
     <MainContainer>
       <StatusOrderContainer>
@@ -29,9 +33,11 @@ export function CompletedBuy() {
             </LocaleIcon>
             <LocaleText>
               <p>
-                Entrega em <span>Rua João daniel Martinelli, 102</span>
+                Entrega em <span>{userLocation.STREET}</span>
               </p>
-              <p>Farrapos - Franca, SP</p>
+              <p>
+                {userLocation.CITY} - São Paulo, {userLocation.UF}
+              </p>
             </LocaleText>
           </IconContainer>
           <IconContainer>

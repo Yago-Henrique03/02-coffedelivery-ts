@@ -155,12 +155,24 @@ interface Product {
   isOnChart?: boolean
 }
 
+interface userLocationType {
+  CEP: number
+  STREET: string
+  RESNUMBER: number
+  COMPLEMENT: string
+  BAIRRO: string
+  CITY: string
+  UF: string
+}
+
 interface ChartContextType {
   products: Product[]
+  userLocation: userLocationType
   setAddQuantity: (id: number) => void
   removeQuantity: (id: number) => void
   addToChart: (id: number) => void
   removeFromChart: (id: number) => void
+  addUserLocation: (agrs: userLocationType) => void
 }
 
 export const ChartContext = createContext({} as ChartContextType)
@@ -171,6 +183,7 @@ interface ChartContextProviderProps {
 
 export function ChartContextProvider({ children }: ChartContextProviderProps) {
   const [products, setProducts] = useState([...coffes])
+  const [userLocation, setUserLocation] = useState({})
   function setAddQuantity(id: number) {
     setProducts((state) =>
       state.map((product) => {
@@ -219,9 +232,15 @@ export function ChartContextProvider({ children }: ChartContextProviderProps) {
     )
   }
 
+  function addUserLocation(args: userLocationType) {
+    setUserLocation((state: any) => args)
+  }
+
   return (
     <ChartContext.Provider
       value={{
+        addUserLocation,
+        userLocation,
         products,
         setAddQuantity,
         removeQuantity,

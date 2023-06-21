@@ -41,8 +41,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 
 export function Payout() {
-  const { products, setAddQuantity, removeQuantity, removeFromChart } =
-    useContext(ChartContext)
+  const {
+    products,
+    setAddQuantity,
+    removeQuantity,
+    removeFromChart,
+    addUserLocation,
+  } = useContext(ChartContext)
 
   // valores do carrinho
   const itensOnChart = products.filter((product) => product.isOnChart === true)
@@ -64,14 +69,16 @@ export function Payout() {
     UF: zod.string().min(1, 'Informe seu estado'),
   })
 
-  const { register, handleSubmit, watch, setValue } = useForm({
+  type NewUserLocation = zod.infer<typeof newUserLocationValidation>
+
+  const { register, handleSubmit, watch, setValue } = useForm<NewUserLocation>({
     resolver: zodResolver(newUserLocationValidation),
   })
 
   const navigate = useNavigate()
 
   function handleAddLocationHouse(data: any) {
-    console.log(data)
+    addUserLocation(data)
     navigate('/Completedbuy')
   }
 
