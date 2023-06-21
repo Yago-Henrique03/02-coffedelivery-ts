@@ -19,4 +19,8 @@ export const GlobalStyle = createGlobalStyle`
   h1,h2,h3,h4 { 
     font-family: 'Baloo 2', cursive;
   }
+
+  :focus {
+    outline: 2px solid ${(props) => props.theme['purple-dark']};
+  }
 `

@@ -33,31 +33,69 @@ import {
   PriceValueContainer,
   ConfirmOrderContainer,
 } from './styles'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ChartContext } from '../../contexts/ChartAndCoffes'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
 
 export function Payout() {
   const { products, setAddQuantity, removeQuantity, removeFromChart } =
     useContext(ChartContext)
-  const itensOnChart = products.filter((product) => product.isOnChart === true)
 
+  // valores do carrinho
+  const itensOnChart = products.filter((product) => product.isOnChart === true)
   const totalPrice = itensOnChart.reduce((acc, currentItem) => {
     const subtotal = currentItem.price * currentItem.quantity
     return acc + subtotal
   }, 0)
-
   const entrega = 3.5
   const totalWithSend = totalPrice + entrega
 
+  // validação de formulário
+  const newUserLocationValidation = zod.object({
+    CEP: zod.number().min(8, 'Informe um CEP válido'),
+    STREET: zod.string().min(5, 'Informe uma Rua válida'),
+    RESNUMBER: zod.number().min(1, 'Informe o número da residência'),
+    COMPLEMENT: zod.string(),
+    BAIRRO: zod.string().min(1, 'Informe o seu Bairro'),
+    CITY: zod.string().min(1, 'Informe sua cidade'),
+    UF: zod.string().min(1, 'Informe seu estado'),
+  })
+
+  const { register, handleSubmit, watch, setValue } = useForm({
+    resolver: zodResolver(newUserLocationValidation),
+  })
+
   const navigate = useNavigate()
 
-  function handleRedirect() {
+  function handleAddLocationHouse(data: any) {
+    console.log(data)
     navigate('/Completedbuy')
   }
 
+  const cep = watch('CEP')
+
+  // useEffect puxa CEP digitado
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        const newData = await resp.json()
+        setValue('STREET', newData.logradouro)
+        setValue('BAIRRO', newData.bairro)
+        setValue('CITY', newData.localidade)
+        setValue('UF', newData.uf)
+      } catch (error) {}
+    }
+
+    fetchData()
+  }, [cep, setValue])
+
   return (
-    <PayoutContainer onSubmit={() => handleRedirect()}>
+    <PayoutContainer onSubmit={handleSubmit(handleAddLocationHouse)}>
       <main>
         <h1>Complete seu pedido</h1>
         <FormContainer>
@@ -70,19 +108,51 @@ export function Payout() {
           </TitleFormContainer>
           <FieldInputsContainer>
             <div>
-              <CepContainer type="number" placeholder="CEP" />
+              <CepContainer
+                type="number"
+                placeholder="CEP"
+                {...register('CEP', {
+                  valueAsNumber: true,
+                })}
+              />
             </div>
             <div>
-              <RuaContainer type="text" placeholder="Rua" />
+              <RuaContainer
+                type="text"
+                placeholder="Rua"
+                {...register('STREET')}
+              />
             </div>
             <div>
-              <NumberContainer type="number" placeholder="Número" />
-              <ComplementContainer type="text" placeholder="Complemento" />
+              <NumberContainer
+                type="number"
+                placeholder="Número"
+                {...register('RESNUMBER', {
+                  valueAsNumber: true,
+                })}
+              />
+              <ComplementContainer
+                type="text"
+                placeholder="Complemento"
+                {...register('COMPLEMENT')}
+              />
             </div>
             <div>
-              <BairroContainer type="text" placeholder="Bairro" />
-              <CityContainer type="text" placeholder="Cidade" />
-              <EstadoContainer type="text" placeholder="UF" />
+              <BairroContainer
+                type="text"
+                placeholder="Bairro"
+                {...register('BAIRRO')}
+              />
+              <CityContainer
+                type="text"
+                placeholder="Cidade"
+                {...register('CITY')}
+              />
+              <EstadoContainer
+                type="text"
+                placeholder="UF"
+                {...register('UF')}
+              />
             </div>
           </FieldInputsContainer>
         </FormContainer>
@@ -179,7 +249,10 @@ export function Payout() {
                 R$ {totalWithSend.toFixed(2).toString().replace('.', ',')}
               </h1>
             </div>
-            <ConfirmOrderContainer type="submit">
+            <ConfirmOrderContainer
+              type="submit"
+              disabled={!itensOnChart.length || !cep}
+            >
               CONFIRMAR PEDIDO
             </ConfirmOrderContainer>
           </PriceValueContainer>
